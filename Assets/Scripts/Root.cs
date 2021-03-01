@@ -7,7 +7,13 @@ public class Root : MonoBehaviour
     public GameObject player;
     public GameObject ground;
     public GameObject prefood;
+    public GameObject endpanel;
     public int foodcount = 150;
+
+    float _fadeDuration = 1f;
+    float _displayImageDuration = 1f;
+    float _endtimer = 0;
+
 
     public static Color RandomColor(float a = 1.0f) {
         float r = Random.Range(0, 255) / 255.0f;
@@ -38,6 +44,19 @@ public class Root : MonoBehaviour
         // init food
         for (int i = 0; i < foodcount; ++i) {
             InitialFood();
+        }
+    }
+
+    void Update() {
+        if (player.transform.position.y < -1.0f) {
+            CanvasGroup imageCanvasGroup = endpanel.GetComponent<CanvasGroup>();
+
+            _endtimer += Time.deltaTime;
+            imageCanvasGroup.alpha = _endtimer / _fadeDuration;
+            if(_endtimer > _fadeDuration + _displayImageDuration)
+            {
+                Application.Quit ();
+            }
         }
     }
 }

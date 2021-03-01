@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float intensity = 5.0f;
+    public float intensity = 10.0f;
     public GameObject camera;
+    public GameObject icon;
+    public GameObject realground;
 
     int score = 0;
     string id;
@@ -52,6 +54,15 @@ public class Player : MonoBehaviour
             // adjust camera
             CameraFollow camerasc = camera.GetComponent<CameraFollow>();
             camerasc.distance += 0.1f;
+
+            // adjust icon
+            IconFollow iconsc = icon.GetComponent<IconFollow>();
+            iconsc.distance += 0.1f;
+
+            // adjust ground
+            realground.transform.position = new Vector3(realground.transform.position.x,
+                                                        realground.transform.position.y - 0.1f,
+                                                        realground.transform.position.z);
         }
     }
 
